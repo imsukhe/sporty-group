@@ -1,4 +1,5 @@
-# README - Jackpot Contribution and Reward Backend System
+# README 
+# Jackpot Contribution and Reward Backend System
 
 ## Overview
 
@@ -15,117 +16,105 @@ This project implements a backend system for processing bets, contributing to a 
 
 ## Class Summary
 
-**1. BetController**
-   1. POST /bets → Publishes a bet to Kafka
-   1. GET /bets/{betId}/evaluate → Checks if the bet has won a jackpot
+### BetController
+    - POST /bets → Publishes a bet to Kafka 
+    - GET /bets/{betId}/evaluate → Checks if the bet has won a jackpot
 
 
-**2. BetService, BetServiceImpl** 
-   1. Interface and implementation to handle bet publishing and evaluation
-   2. Delegates to Kafka and strategy layers
+### BetService, BetServiceImpl
+    - Interface and implementation to handle bet publishing and evaluation
+    - Delegates to Kafka and strategy layers
 
 
-**3. BetProcessorService**
-   1. Called by Kafka consumer
-   1. Applies contribution strategy and updates jackpot
+### BetProcessorService
+    - Called by Kafka consumer
+    - Applies contribution strategy and updates jackpot
 
 
-**4. KafkaProducerService**
-   1. Sends messages to Kafka 
-   2. Generic KafkaTemplate<String, Object>
+### KafkaProducerService
+    - Sends messages to Kafka 
+    - Generic KafkaTemplate<String, Object>
 
 
-**5. KafkaConsumerService**
-    1. Listens to Kafka topics
-   2. Delegates to appropriate handler via registry
+### KafkaConsumerService
+    - Listens to Kafka topics
+    - Delegates to appropriate handler via registry
 
-kafka/KafkaMessageHandler<T>
+### KafkaMessageHandler
+    Interface for message handlers
 
-Interface for message handlers
+### KafkaHandlerRegistry
+    - Registers handlers per topic
+    - Singleton component used by consumer
 
-kafka/KafkaHandlerRegistry
+### Models
 
-Registers handlers per topic
+    BetRequest: input payload
+    
+    Jackpot: jackpot config and state
+    
+    JackpotContribution: contribution entry
+    
+    JackpotReward: reward winner entry
+    
+    EvaluationResponse: API response object
 
-Singleton component used by consumer
+### ContributionStrategy, RewardStrategy: Strategy interfaces
 
+### ContributionStrategyFactory, RewardStrategyFactory: Factory classes for pluggable logic
 
-BetRequest: input payload
+## InMemoryDb
+    - Singleton in-memory store
+    - Thread-safe maps for jackpots, contributions, rewards
 
-Jackpot: jackpot config and state
+## Testing
 
-JackpotContribution: contribution entry
+### BetServiceImplTest covers:
+    - Kafka publishing
+    - Evaluation logic for win/loss
+    - Jackpot reset
+    - Uses Mockito, JUnit 5, and static method mocking via mockito-inline
 
-JackpotReward: reward winner entry
+## How to Run
 
-EvaluationResponse: API response object
+### Prerequisites
+    - Java 17+
+    - Maven 3.x
+    - Docker + Docker Compose
 
-strategy/
+### Step 1: Start Kafka via Docker
+    Run Kafka: docker-compose up -d
 
-ContributionStrategy, RewardStrategy: Strategy interfaces
+### Step 2: Run Spring Boot Application
+    ./mvnw spring-boot:run
 
-ContributionStrategyFactory, RewardStrategyFactory: Factory classes for pluggable logic
-
-db/InMemoryDb
-
-Singleton in-memory store
-
-Thread-safe maps for jackpots, contributions, rewards
-
-Testing
-
-BetServiceImplTest covers:
-
-Kafka publishing
-
-Evaluation logic for win/loss
-
-Jackpot reset
-
-Uses Mockito, JUnit 5, and static method mocking via mockito-inline
-
-How to Run
-
-Prerequisites
-
-Java 17+
-
-Maven 3.x
-
-Docker + Docker Compose
-
-Step 1: Start Kafka via Docker
-
-Run Kafka:
-
-docker-compose up -d
-Step 2: Run Spring Boot Application
-
-./mvnw spring-boot:run
-API Usage
-
-1. Publish a Bet
-POST http://localhost:8080/bets
-Content-Type: application/json
-
-{
-"betId": "bet101",
-"userId": "user1",
-"jackpotId": "jackpot1",
-"amount": 100.0
-}
+## API Usage
 
 
-2. Evaluate a Bet
+### 1. Publish a Bet
+    POST http://localhost:8080/bets
+    Content-Type: application/json
+    {
+    "betId": "bet101",
+    "userId": "user1",
+    "jackpotId": "jackpot1",
+    "amount": 100.0
+    }
 
-GET http://localhost:8080/bets/bet101/evaluate
+### 2. Evaluate a Bet
+    GET http://localhost:8080/bets/bet101/evaluate
+
+## Notes
+    - Jackpots must be added at runtime (e.g., via CommandLineRunner or internal utility)
+    - Strategy logic (FIXED, VARIABLE) can be extended using factories
+    - Kafka messages are deserialized using Spring's JsonDeserializer
 
 
-Notes
+## Swagger / API Documentation
 
-Jackpots must be added at runtime (e.g., via CommandLineRunner or internal utility)
+This project uses SpringDoc OpenAPI 3 to generate interactive Swagger UI documentation.
 
-Strategy logic (FIXED, VARIABLE) can be extended using factories
-
-Kafka messages are deserialized using Spring's JsonDeserializer
-
+### URL: http://localhost:8080/swagger-ui/index.html
+    - After starting the Spring Boot application, you can access all exposed endpoints (e.g. /bets, /bets/{betId}/evaluate) and their schemas from the browser.
+    - You can test API inputs directly from Swagger without curl/Postman.
+    - No additional config is needed — Swagger auto-discovers REST controllers and models.
