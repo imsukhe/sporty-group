@@ -106,7 +106,7 @@ This project implements a backend system for processing bets, contributing to a 
     GET http://localhost:8080/jackpot/jackpot1
 
 ### 3. Get All Jackpots
-    GET http://localhost:8080/jackpot
+    GET http://localhost:8080/jackpot/all
 
 ### 4. Publish a Bet
     POST http://localhost:8080/bet
