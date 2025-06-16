@@ -31,7 +31,7 @@ public class JackpotController {
         return db.getJackpotById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public Collection<Jackpot> getAllJackpots() {
         return db.getAllJackpots();
     }
