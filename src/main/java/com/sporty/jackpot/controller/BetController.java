@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bets")
+@RequestMapping("/bet")
 @RequiredArgsConstructor
 public class BetController {
 
@@ -22,7 +22,7 @@ public class BetController {
         return "Bet published to Kafka";
     }
 
-    @GetMapping("/{betId}/evaluate")
+    @GetMapping("/evaluate/{betId}")
     public EvaluationResponse evaluateBet(@PathVariable String betId) {
         return betService.evaluateBet(betId);
     }

@@ -90,10 +90,29 @@ This project implements a backend system for processing bets, contributing to a 
 
 ## API Usage
 
-
-### 1. Publish a Bet
-    POST http://localhost:8080/bets
+### 1. Create a Jackpot
+    POST http://localhost:8080/jackpot
     Content-Type: application/json
+    
+    Request Body:
+    {
+    "id": "jackpot1",
+    "initialAmount": 1000.0,
+    "contributionType": "FIXED",
+    "rewardType": "VARIABLE"
+    }
+
+### 2. Get a Specific Jackpot
+    GET http://localhost:8080/jackpot/jackpot1
+
+### 3. Get All Jackpots
+    GET http://localhost:8080/jackpot
+
+### 4. Publish a Bet
+    POST http://localhost:8080/bet
+    Content-Type: application/json
+
+    Request Body:
     {
     "betId": "bet101",
     "userId": "user1",
@@ -101,8 +120,8 @@ This project implements a backend system for processing bets, contributing to a 
     "amount": 100.0
     }
 
-### 2. Evaluate a Bet
-    GET http://localhost:8080/bets/bet101/evaluate
+### 5. Evaluate a Bet
+    GET http://localhost:8080/bet/evaluate/bet101
 
 ## Notes
     - Jackpots must be added at runtime (e.g., via CommandLineRunner or internal utility)

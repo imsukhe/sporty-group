@@ -4,6 +4,7 @@ import com.sporty.jackpot.model.Jackpot;
 import com.sporty.jackpot.model.JackpotContribution;
 import com.sporty.jackpot.model.JackpotReward;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -46,6 +47,10 @@ public class InMemoryDb {
 
     public JackpotReward getRewardByBetId(String betId) {
         return rewards.get(betId);
+    }
+
+    public Collection<Jackpot> getAllJackpots() {
+        return jackpots.values();
     }
 
     public void clear() {

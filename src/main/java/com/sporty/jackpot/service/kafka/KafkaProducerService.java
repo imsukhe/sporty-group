@@ -1,5 +1,6 @@
 package com.sporty.jackpot.service.kafka;
 
+import com.sporty.jackpot.pojo.request.BetRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,7 @@ public class KafkaProducerService {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public <T> void send(String topic, T message) {
+    public void send(String topic, BetRequest message) {
         kafkaTemplate.send(topic, message);
     }
-
 }
