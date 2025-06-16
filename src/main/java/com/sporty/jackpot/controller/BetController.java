@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BetController {
 
-    private KafkaProducerService kafkaProducer;
+    private final KafkaProducerService kafkaProducer;
 
-    private BetService betService;
+    private final BetService betService;
 
     @PostMapping
     public String publishBet(@RequestBody BetRequest betRequest) {
