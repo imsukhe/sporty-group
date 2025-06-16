@@ -134,7 +134,7 @@ This project implements a backend system for processing bets, contributing to a 
 This project uses SpringDoc OpenAPI 3 to generate interactive Swagger UI documentation.
 
 ### URL: http://localhost:8080/swagger-ui/index.html
-    - After starting the Spring Boot application, you can access all exposed endpoints (e.g. /bets, /bets/{betId}/evaluate) and their schemas from the browser.
+    - After starting the Spring Boot application, you can access all exposed endpoints and their schemas from the browser.
     - You can test API inputs directly from Swagger without curl/Postman.
     - No additional config is needed — Swagger auto-discovers REST controllers and models.
 
