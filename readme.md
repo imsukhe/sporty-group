@@ -137,3 +137,11 @@ This project uses SpringDoc OpenAPI 3 to generate interactive Swagger UI documen
     - After starting the Spring Boot application, you can access all exposed endpoints (e.g. /bets, /bets/{betId}/evaluate) and their schemas from the browser.
     - You can test API inputs directly from Swagger without curl/Postman.
     - No additional config is needed — Swagger auto-discovers REST controllers and models.
+
+## API screenshots
+
+<img width="1687" alt="Screenshot 2025-06-16 at 12 23 26 PM" src="https://github.com/user-attachments/assets/7236239b-5e2f-410e-80f8-001836e6ac3c" />
+<img width="1451" alt="Screenshot 2025-06-16 at 12 23 41 PM" src="https://github.com/user-attachments/assets/b1c765ee-e03a-446e-be1f-c3e44da4d19e" />
+<img width="1678" alt="Screenshot 2025-06-16 at 12 24 26 PM" src="https://github.com/user-attachments/assets/7657458f-fbb1-4a92-92fc-bee1c9ccda28" />
+<img width="1679" alt="Screenshot 2025-06-16 at 12 24 48 PM" src="https://github.com/user-attachments/assets/3da42431-6364-4edb-8951-421fa291b88d" />
+
